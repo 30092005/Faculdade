@@ -5,7 +5,7 @@ from rest_framework import status
 from .models import Task
 from .serializers import TaskSerializer
 
-# ViewSet
+
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
@@ -16,7 +16,6 @@ def get_all_tasks(request):
     serializer = TaskSerializer(tasks, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
-# Criar uma nova tarefa
 @api_view(['POST'])
 def create_task(request):
     serializer = TaskSerializer(data=request.data)
@@ -25,7 +24,6 @@ def create_task(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# Atualizar uma tarefa
 @api_view(['PUT'])
 def update_task(request, pk):
     try:
@@ -39,7 +37,6 @@ def update_task(request, pk):
         return Response(serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# Excluir uma tarefa
 @api_view(['DELETE'])
 def delete_task(request, pk):
     try:
